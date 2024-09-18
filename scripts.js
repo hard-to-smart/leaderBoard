@@ -1,19 +1,10 @@
-// const firstName = document.querySelector("fname");
-// const lastName = document.querySelector("lname");
-// const country = document.querySelector("country");
-// const score = document.querySelector(score);
-
 const form = document.querySelector("form");
 const leaderBoard =[];
 const formElements = Array.from(document.forms[0].children);
-const deleteBtn= document.createElement("button");
-const plusFive = document.createElement("button");
-const minusFive = document.createElement("button");
+
 formElements.pop();
 
 console.log(leaderBoard)
-plusFive.innerHTML = +5;
-minusFive.innerHTML = -5;
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -25,6 +16,7 @@ form.addEventListener("submit", (e) => {
     resetForm();
 })
 function showData(){
+    leaderBoard.sort((a, b) => b.score - a.score);
     let place=document.getElementById("board")
     
     place.innerHTML=""
@@ -61,15 +53,16 @@ function showData(){
 
         buttonSpace.addEventListener('click', (e)=>{ 
             if(e.target.id ==="plus"){
-                el.score += 5;
+                el.score = parseInt(el.score) + 5
                 console.log(el.score)
             }
             else if(e.target.id ==="minus"){
-                console.log("-")
+                el.score = parseInt(el.score) - 5
             }
             else if(e.target.id ==="del"){
-                console.log("del")
+                leaderBoard.splice(index, 1)
             }
+            showData()
         })
 
         container.append(name, country, score, buttonSpace)
@@ -79,11 +72,7 @@ function showData(){
 
     })
 }
-// function handleButtonSpace(index, buttonSpace){
-// if(buttonArray.children.id=="plus"){
-//     console.log(hi);
-// }
-// }
+
 function resetForm(){
     form.reset();
     formElements[0].focus();
